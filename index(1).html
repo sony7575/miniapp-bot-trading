@@ -1,89 +1,26 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#00c853" />
   <title>Bot Trading Cuan</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png">
-  <style>
-    body {
-      background-color: #121212;
-      color: #fff;
-      font-family: sans-serif;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    select, button {
-      padding: 12px;
-      margin: 10px 0;
-      width: 80%;
-      max-width: 300px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-    }
-    button {
-      background-color: #00c853;
-      color: #fff;
-      cursor: pointer;
-    }
-  </style>
 </head>
-<body>
-  <h1>📊 Dashboard Bot Trading</h1>
-  <p>Pilih Pair:</p>
-  <select id="pairSelect">
-    <option value="BTCUSDT">BTCUSDT</option>
-    <option value="ETHUSDT">ETHUSDT</option>
-    <option value="SOLUSDT">SOLUSDT</option>
-  </select>
-
-  <p>Strategi Aktif:</p>
-  <button onclick="startGrid()">⚙️ Grid Trading</button><br>
-  <button onclick="startTP()">📈 Trailing TP</button>
+<body style="background:#111; color:white; text-align:center; padding:40px">
+  <h1>🚀 Aktifkan Bot Trailing TP</h1>
+  <input type="text" id="symbol" placeholder="Contoh: BTCUSDT" />
+  <button onclick="startBot()">Start</button>
 
   <script>
-    window.Telegram?.WebApp?.expand();
+    function startBot() {
+      const symbol = document.getElementById("symbol").value;
 
-    function startGrid() {
-      const pair = document.getElementById("pairSelect").value;
-      const telegramId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || "test-user";
-
-      fetch("http://69.62.112.109:8001/start_grid", {
+      fetch("http://69.62.112.109:5000/start", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pair: pair, telegram_id: telegramId })
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "symbol=" + symbol
       })
-      .then(() => alert("🚀 Grid Trading dimulai!"))
-      .catch(err => alert("❌ Gagal kirim strategi"));
-    }
-
-    function startTP() {
-      const pair = document.getElementById("pairSelect").value;
-      const telegramId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || "test-user";
-
-      fetch("http://69.62.112.109:8001/start_tp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pair: pair, telegram_id: telegramId })
-      })
-      .then(() => alert("🚀 Trailing TP dimulai!"))
-      .catch(err => alert("❌ Gagal kirim strategi"));
-    }
-
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(() => console.log("✅ Service Worker Registered"))
-          .catch(err => console.error("❌ Service Worker Error", err));
-      });
+      .then(() => alert("✅ Bot dimulai untuk " + symbol))
+      .catch(() => alert("❌ Gagal konek ke server bot"));
     }
   </script>
 </body>
