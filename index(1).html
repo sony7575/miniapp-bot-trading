@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bot Trading Cuan</title>
+  <title>Mini App Bot Trading</title>
 </head>
-<body style="background:#111; color:white; text-align:center; padding:40px">
-  <h1>🚀 Aktifkan Bot Trailing TP</h1>
-  <input type="text" id="symbol" placeholder="Contoh: BTCUSDT" />
-  <button onclick="startBot()">Start</button>
+<body style="background-color:#111; color:white; text-align:center; padding:50px;">
+  <h1>🚀 Bot Trading Trailing TP</h1>
+  <p>Masukkan simbol kripto (contoh: <code>BTCUSDT</code>)</p>
+  <input type="text" id="symbol" placeholder="BTCUSDT" style="padding:10px;"/>
+  <br><br>
+  <button onclick="startBot()" style="padding:10px 20px;">Aktifkan Bot</button>
 
   <script>
     function startBot() {
@@ -19,8 +21,16 @@
         },
         body: "symbol=" + symbol
       })
-      .then(() => alert("✅ Bot dimulai untuk " + symbol))
-      .catch(() => alert("❌ Gagal konek ke server bot"));
+      .then(response => {
+        if (response.ok) {
+          alert("✅ Bot dimulai untuk " + symbol);
+        } else {
+          alert("❌ Gagal mulai bot");
+        }
+      })
+      .catch(() => {
+        alert("❌ Tidak bisa konek ke server. Cek koneksi VPS kamu.");
+      });
     }
   </script>
 </body>
