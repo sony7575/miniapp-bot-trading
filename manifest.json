@@ -1,0 +1,22 @@
+
+{
+  "name": "Bot Trading Cuan",
+  "short_name": "CuanBot",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#00c853",
+  "description": "Aplikasi bot trading cuan otomatis!",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/833/833472.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/833/833472.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
