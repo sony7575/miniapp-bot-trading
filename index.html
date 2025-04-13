@@ -56,7 +56,6 @@ if ('serviceWorker' in navigator) {
 
 <script>
 window.Telegram.WebApp.expand();
-
 function startGrid() {
   const pair = document.getElementById("pairSelect").value;
   const telegramId = window.Telegram.WebApp.initDataUnsafe.user.id;
@@ -81,6 +80,13 @@ function startTP() {
   })
   .then(() => alert("🚀 Trailing TP dimulai!"))
   .catch(err => alert("❌ Gagal kirim strategi"));
+}
+  if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log("✅ Service Worker Registered"))
+      .catch(err => console.error("❌ Service Worker Error", err));
+  });
 }
 </script>
 </body>
